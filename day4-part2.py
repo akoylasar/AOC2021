@@ -1,10 +1,7 @@
 import numpy as np
+import time
 
-def solve():
-    with open('day4.txt', 'r') as file:
-        lines = list(line for line in (l.strip() for l in file) if line)
-    drawOrder = tuple(int(n) for n in lines[0].split(','))
-    boards = [np.array([[int(x) for x in l.split()] for l in lines[i:i + 5]]) for i in range(1, len(lines) - 1, 5)]
+def solve(drawOrder, boards):
     boardsFlags = [np.ones((5, 5), dtype=int) for i in range(len(boards))]  # 1 means not marked (convenient later)
     print(playBingo(drawOrder, boards, boardsFlags))
 
@@ -28,4 +25,10 @@ def updateBoard(n, board, boardFlags):
     return False
 
 if __name__ == '__main__':
-    solve()
+    with open('day4.txt', 'r') as file:
+        lines = list(line for line in (l.strip() for l in file) if line)
+    drawOrder = tuple(int(n) for n in lines[0].split(','))
+    boards = [np.array([[int(x) for x in l.split()] for l in lines[i:i + 5]]) for i in range(1, len(lines) - 1, 5)]
+    start = time.time()
+    solve(drawOrder, boards)
+    print("%s seconds" % (time.time() - start))

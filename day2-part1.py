@@ -1,21 +1,20 @@
-def solve():
-    input = open('day2.txt', 'r')
-    position = getSubmarineLocation(input.readlines())
-    print(position[0] * position[1]) # horizontalPos * depth
+import time
 
-def getSubmarineLocation(submarineRoute):
+def solve(submarineRoute):
     x = 0
     y = 0
-    for instruction in submarineRoute:
-        i = instruction.split(' ') # each instruction has a direction and a step size e.g `forward 4`
-        step = int(i[1]);
-        if (i[0] == 'forward'):
-            x += step
-        elif (i[0] == 'down'):
-            y += step
+    for s in submarineRoute:
+        if (s[0] == 'forward'):
+            x += int(s[1])
+        elif (s[0] == 'down'):
+            y += int(s[1])
         else: # (i[0] == 'up')
-            y -= step
-    return x, y
+            y -= int(s[1])
+    print(x * y)
 
 if __name__ == '__main__':
-    solve()
+    with open('day2.txt', 'r') as file:
+        nput = [n.split() for n in file.readlines()]
+    start = time.time()
+    solve(nput)
+    print("%s seconds" % (time.time() - start))

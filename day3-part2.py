@@ -1,9 +1,8 @@
 import numpy as np
+import time
 
-def solve():
-    with open('day3.txt', 'r') as file:
-        lines = file.readlines()
-    input = np.array([[int(s) for s in line.strip("\n")] for line in lines])
+def solve(nput):
+    input = np.array([[int(s) for s in line.strip("\n")] for line in nput])
     print(getLifeSupportRating(input))
 
 def getLifeSupportRating(input):
@@ -20,4 +19,8 @@ def getRating(input, criteriaFunc):
     return sum(x * (1 << (len(input[0]) - i - 1)) for i, x in enumerate(input[0]))
 
 if __name__ == '__main__':
-    solve()
+    with open('day3.txt', 'r') as file:
+        nput = file.readlines()
+    start = time.time()
+    solve(nput)
+    print("%s seconds" % (time.time() - start))
