@@ -1,7 +1,6 @@
 import time
 from collections import defaultdict
 
-# TODO: implement without recursion
 def solve(graph):
     paths = []
     def traverse(path):
