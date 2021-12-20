@@ -39,7 +39,7 @@ def solve(weights, source, dest):
                 cost = dist[v]
                 if alt < cost:
                     dist[v] = alt
-                    # prev[k][l] = u
+                    # prev[v] = u
                     hq.heappush(Q, (alt, v))
     print(dist[dest])
 

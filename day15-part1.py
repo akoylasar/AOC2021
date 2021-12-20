@@ -29,7 +29,6 @@ def solve(weights):
     dist[source] = 0
     Q = [(0, source)]
     hq.heapify(Q)
-    # prev = np.full(weights.shape, None)
     while len(Q) != 0:
         k, u = hq.heappop(Q)
         if u == dest:
@@ -41,7 +40,6 @@ def solve(weights):
                 cost = dist[v]
                 if alt < cost:
                     dist[v] = alt
-                    # prev[k][l] = u
                     hq.heappush(Q, (alt, v))
     print(dist[dest])
 
