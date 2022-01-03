@@ -100,7 +100,8 @@ def getExplodingNumber(number: Node, i=0):
     return None
 
 def reduce(number: Node):
-    return explode(number) or split(number)
+    while explode(number) or split(number):
+        continue
 
 def addNumbers(left:Node, right:Node):
     parent = Node(None, left, right)
@@ -113,17 +114,21 @@ def getMagnitude(number: Node):
         return 3 * getMagnitude(number.left) + 2 * getMagnitude(number.right)
     return number.data
 
-def solve(numbers):
-    number = numbers[0]
-    for other in numbers[1:]:
-        number = addNumbers(number, other)
-        while reduce(number):
-            continue
-    print(getMagnitude(number))
+def solve(nput):
+    maxMagnitude = 0
+    for n0 in nput:
+        for n1 in nput:
+            if n0 == n1: continue
+            c0 = addNumbers(parseBinaryTree(n0), parseBinaryTree(n1))
+            c1 = addNumbers(parseBinaryTree(n1), parseBinaryTree(n0))
+            reduce(c0)
+            reduce(c1)
+            maxMagnitude = max(maxMagnitude, getMagnitude(c0), getMagnitude(c1))
+    print(maxMagnitude)
 
 if __name__ == '__main__':
     with open('day18.txt', 'r') as file:
-        numbers = [parseBinaryTree(l.strip()) for l in file.readlines()]
+        nput = [l.strip() for l in file.readlines()]
     start = time.time()
-    solve(numbers)
+    solve(nput)
     print("%s seconds" % (time.time() - start))
