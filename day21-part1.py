@@ -1,15 +1,18 @@
-def solve(startPos):
-    base = (6, 15)
+def solve(p1, p2):
+    startPos = [p1, p2]
     scores = [0, 0]
     i = 0
-    flip = 0
+    s = 0
     while True:
-        n = i % 11
         c = i % 2
-        startPos[c] = (startPos[c] % 10) + 18 * n + base[1 - c if flip else c]
+        d = 3 * s + 6
+        s += 3
+        s %= 100
+        startPos[c] = ((startPos[c] + d) - 1) % 10 + 1
         scores[c] += startPos[c]
-         scores[c] >= 1000:
-            break
-        i += 1
-        flip = int(i % 33 == 0)
+        if scores[c] >= 1000: break
+        i += 3
+    print((i + 3) * min(scores))
 
+if __name__ == '__main__':
+    solve(10, 2)
